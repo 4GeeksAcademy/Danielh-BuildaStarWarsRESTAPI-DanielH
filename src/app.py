@@ -8,7 +8,10 @@ from flask_swagger import swagger
 from flask_cors import CORS
 from utils import APIException, generate_sitemap
 from admin import setup_admin
-from models import db, User
+from models import db, User, Characters, Planets, Starships, Favorites
+from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy.orm import relationship
+
 #from models import Person
 
 app = Flask(__name__)
@@ -44,6 +47,47 @@ def handle_hello():
     }
 
     return jsonify(response_body), 200
+
+@app.route('/Characters', methods=['GET'])
+def handle_hello1():
+
+    response_body = {
+        "msg": "Hello, this is your GET /Characters response "
+    }
+
+    return jsonify(response_body), 200
+
+
+@app.route('/Planets', methods=['GET'])
+def handle_hello2():
+
+    response_body = {
+        "msg": "Hello, this is your GET /Planets response "
+    }
+
+    return jsonify(response_body), 200
+
+@app.route('/Starships', methods=['GET'])
+def handle_hello3():
+
+    response_body = {
+        "msg": "Hello, this is your GET /Starships response "
+    }
+
+    return jsonify(response_body), 200
+
+@app.route('/Favorites', methods=['GET'])
+def handle_hello4():
+
+    response_body = {
+        "msg": "Hello, this is your GET /Favorites response "
+    }
+
+    return jsonify(response_body), 200
+
+
+
+
 
 # this only runs if `$ python src/app.py` is executed
 if __name__ == '__main__':
