@@ -143,24 +143,58 @@ class Starships(db.Model):
         }
 
 
-class Favorites(db.Model):
-    __tablename__ = 'favorites'
+class FavoritesCharacters(db.Model):
+    __tablename__ = 'favorites_Characters'
     id = Column(Integer, primary_key=True)
     characters_id = Column(Integer, ForeignKey('characters.id'))
     characters = relationship(Characters)
-    planets_id = Column(Integer, ForeignKey('planets.id'))
-    planets = relationship(Planets)
-    starships_id = Column(Integer, ForeignKey('starships.id'))
-    starships = relationship(Starships)
-
+    
     def __repr__(self):
-        return '<Favorites id={self.id}>'
+        return '<FavoritesCharacters id={self.id}>'
 
     def serialize(self):
         return {
             "id": self.id,
             "characters_id": self.characters_id,
-            "planets_id": self.planets_id,
-            "starships_id": self.starships_id,
-            
+                        
         }
+
+
+class FavoritesPlanets(db.Model):
+    __tablename__ = 'favorites_Planets'
+    id = Column(Integer, primary_key=True)
+    planets_id = Column(Integer, ForeignKey('planets.id'))
+    planets = relationship(Planets)
+    
+    def __repr__(self):
+        return '<FavoritesPlanets id={self.id}>'
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "planets_id": self.characters_id,
+                        
+        }
+
+
+class FavoritesStarships(db.Model):
+    __tablename__ = 'favorites_Starships'
+    id = Column(Integer, primary_key=True)
+    starships_id = Column(Integer, ForeignKey('starships.id'))
+    starships = relationship(Starships)
+    
+    def __repr__(self):
+        return '<FavoritesStarships id={self.id}>'
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "starships_id": self.characters_id,
+                        
+        }
+
+
+
+
+
+    

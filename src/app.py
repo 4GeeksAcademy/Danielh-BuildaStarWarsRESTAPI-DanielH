@@ -8,7 +8,7 @@ from flask_swagger import swagger
 from flask_cors import CORS
 from utils import APIException, generate_sitemap
 from admin import setup_admin
-from models import db, User, Characters, Planets, Starships, Favorites
+from models import db, User, Characters, Planets, Starships, FavoritesCharacters, FavoritesPlanets, FavoritesStarships
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
 
@@ -48,44 +48,89 @@ def handle_hello():
 
     return jsonify(response_body), 200
 
-@app.route('/Characters', methods=['GET'])
-def handle_hello1():
+@app.route('/characters', methods=['GET'])
+def handle_characters():
+
+    characters = Characters.query.all()
+    serialized_characters = [character.serialize() for character in characters]
 
     response_body = {
+        "characters": serialized_characters,
         "msg": "Hello, this is your GET /Characters response "
+        
     }
+
+    # response_body = {
+    #     "msg": "Hello, this is your GET /Characters response "
+    # }
 
     return jsonify(response_body), 200
 
 
-@app.route('/Planets', methods=['GET'])
-def handle_hello2():
+@app.route('/planets', methods=['GET'])
+def handle_planets():
+
+    planets = Planets.query.all()
+    serialized_planets = [planet.serialize() for planet in planets]
 
     response_body = {
+        "planets": serialized_planets,
         "msg": "Hello, this is your GET /Planets response "
+        
     }
+
+    # response_body = {
+    #     "msg": "Hello, this is your GET /Planets response "
+    # }
 
     return jsonify(response_body), 200
 
-@app.route('/Starships', methods=['GET'])
-def handle_hello3():
+@app.route('/starships', methods=['GET'])
+def handle_starships():
+
+    starships = Starships.query.all()
+    serialized_starships = [starship.serialize() for starship in starships]
 
     response_body = {
+        "starships": serialized_starships,
         "msg": "Hello, this is your GET /Starships response "
     }
+    # response_body = {
+    #     "msg": "Hello, this is your GET /Starships response "
+    # }
 
     return jsonify(response_body), 200
 
-@app.route('/Favorites', methods=['GET'])
-def handle_hello4():
+@app.route('/favorites/characters', methods=['GET'])
+def handle_favorites_characters():
 
     response_body = {
-        "msg": "Hello, this is your GET /Favorites response "
+        "msg": "Hello, this is your GET /Favorites Characters response "
     }
 
     return jsonify(response_body), 200
 
 
+
+@app.route('/favorites/planets', methods=['GET'])
+def handle_favorites_planets():
+
+    response_body = {
+        "msg": "Hello, this is your GET /Favorites Planets response "
+    }
+
+    return jsonify(response_body), 200
+
+
+
+@app.route('/favorites/starships', methods=['GET'])
+def handle_favorites_starships():
+
+    response_body = {
+        "msg": "Hello, this is your GET /Favorites Starships response "
+    }
+
+    return jsonify(response_body), 200
 
 
 
