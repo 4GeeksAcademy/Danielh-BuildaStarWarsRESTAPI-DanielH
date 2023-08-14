@@ -1,6 +1,6 @@
 import os
 from flask_admin import Admin
-from models import db, User, Characters, Planets, Starships, FavoritesCharacters, FavoritesPlanets, FavoritesStarships
+from models import db, User, Characters, Planets, Starships, FavoritesCharacters, FavoritesPlanets, FavoritesStarships, Person
 from flask_admin.contrib.sqla import ModelView
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
@@ -20,6 +20,7 @@ def setup_admin(app):
     admin.add_view(ModelView(FavoritesCharacters, db.session))
     admin.add_view(ModelView(FavoritesPlanets, db.session))
     admin.add_view(ModelView(FavoritesStarships, db.session))
+    admin.add_view(ModelView(Person, db.session))
     
 
 

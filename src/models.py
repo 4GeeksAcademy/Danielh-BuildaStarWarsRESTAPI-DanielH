@@ -5,6 +5,20 @@ from sqlalchemy.orm import relationship
 
 db = SQLAlchemy()
 
+class Person(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80), unique=True, nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+
+    # Tell python how to print the class object on the console
+    def __repr__(self):
+        return '<Person %r>' % self.username
+
+    # Tell python how convert the class object into a dictionary ready to jsonify
+    def serialize(self):
+        return {"username": self.username,
+                "email": self.email}
+
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
@@ -172,7 +186,7 @@ class FavoritesPlanets(db.Model):
     def serialize(self):
         return {
             "id": self.id,
-            "planets_id": self.characters_id,
+            "planets_id": self.planets_id,
                         
         }
 
@@ -189,7 +203,7 @@ class FavoritesStarships(db.Model):
     def serialize(self):
         return {
             "id": self.id,
-            "starships_id": self.characters_id,
+            "starships_id": self.starships_id,
                         
         }
 
