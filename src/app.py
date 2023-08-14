@@ -155,6 +155,8 @@ def get_single_starship(starships_id):
 
 
 
+
+
 @app.route('/favorites/characters', methods=['GET'])
 def handle_favorites_characters():
 
@@ -169,6 +171,17 @@ def handle_favorites_characters():
     return jsonify(response_body), 200
 
 
+
+@app.route('/favorites/characters/<int:character_id>', methods=['POST'])
+def handle_favorites_character():
+
+    character = Characters.query.get(character_id)
+    if character is None:
+        return "Character not found, este personaje no existe menda", 404
+
+    return jsonify(character.serialize()), 200
+
+ 
 
 @app.route('/favorites/planets', methods=['GET'])
 def handle_favorites_planets():
@@ -190,6 +203,15 @@ def handle_favorites_planets():
     return jsonify(response_body), 200
 
 
+@app.route('/favorites/planets/<int:planet_id>', methods=['POST'])
+def handle_favorites_planet(planet_id):
+
+    planet = Planets.query.get(planet_id)
+    if planet is None:
+        return "Planet not found, este planeta no existe menda", 404
+
+    return jsonify(planet.serialize()), 200
+
 
 @app.route('/favorites/starships', methods=['GET'])
 def handle_favorites_starships():
@@ -206,6 +228,15 @@ def handle_favorites_starships():
 
     return jsonify(response_body), 200
 
+
+@app.route('/favorites/starships/<int:starships_id>', methods=['POST'])
+def handle_favorites_starship(starships_id):
+
+    starship = Starships.query.get(starships_id)
+    if starship is None:
+        return "starship not found, esta nave no existe menda", 404
+
+    return jsonify(starship.serialize()), 200
 
 
 @app.route('/person/<int:person_id>', methods=['PUT', 'GET'])
