@@ -181,6 +181,18 @@ def handle_favorites_character():
 
     return jsonify(character.serialize()), 200
 
+
+@app.route('/favorites/characters/<int:character_id>', methods=['DELETE'])
+def delete_favorites_character(character_id):
+    favorite_character = FavoritesCharacters.query.get(character_id)
+    
+    if favorite_character is None:
+        return "Favorite character not found, este personaje favorito no existe menda", 404
+    
+    db.session.delete(favorite_character)
+    db.session.commit()
+
+    return jsonify({"message": "Favorite character deleted successfully"}), 200
  
 
 @app.route('/favorites/planets', methods=['GET'])
@@ -212,6 +224,19 @@ def handle_favorites_planet(planet_id):
 
     return jsonify(planet.serialize()), 200
 
+@app.route('/favorites/planets/<int:planet_id>', methods=['DELETE'])
+def delete_favorites_planet(planet_id):
+
+    favorite_planet = FavoritesPlanets.query.get(planet_id)
+    
+    if favorite_planet is None:
+        return "Favorite planet not found, este planeta favorito no existe menda", 404
+    
+    db.session.delete(favorite_planet)
+    db.session.commit()
+
+    return jsonify({"message": "Favorite planet deleted successfully"}), 200
+
 
 @app.route('/favorites/starships', methods=['GET'])
 def handle_favorites_starships():
@@ -237,6 +262,19 @@ def handle_favorites_starship(starships_id):
         return "starship not found, esta nave no existe menda", 404
 
     return jsonify(starship.serialize()), 200
+
+
+@app.route('/favorites/starships/<int:starships_id>', methods=['DELETE'])
+def delete_favorites_starship(starships_id):
+    favorite_starship = FavoritesStarships.query.get(starships_id)
+    
+    if favorite_starship is None:
+        return "Favorite starship not found, esta nave espacial favorita no existe menda", 404
+    
+    db.session.delete(favorite_starship)
+    db.session.commit()
+
+    return jsonify({"message": "Favorite starship deleted successfully"}), 200
 
 
 @app.route('/person/<int:person_id>', methods=['PUT', 'GET'])
